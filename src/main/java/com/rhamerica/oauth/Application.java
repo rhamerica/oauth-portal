@@ -1,4 +1,4 @@
-package com.rhamerica.shop;
+package com.rhamerica.oauth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
