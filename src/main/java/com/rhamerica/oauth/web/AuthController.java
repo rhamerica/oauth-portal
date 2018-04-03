@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.Optional;
 
@@ -90,11 +91,17 @@ public class AuthController {
 
         String code = securityService.generateAuthCode(client, user);
 
-        String redirectTo = UriComponentsBuilder
-                .fromHttpUrl(client.getRedirectUri())
-                .queryParam("code", code)
-                .build()
-                .toUriString();
+        UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl(client.getRedirectUri());
+
+        // state
+        if (!StringUtils.isEmpty(authRequest.getState())) {
+            uriComponentsBuilder.queryParam("state", authRequest.getState());
+        }
+
+        // code
+        uriComponentsBuilder.queryParam("code", code);
+
+        String redirectTo = uriComponentsBuilder.build().toUriString();
 
         return new ModelAndView(String.format("redirect:%s", redirectTo));
     }
@@ -111,7 +118,8 @@ public class AuthController {
             @RequestParam(value = "response_type", defaultValue = "") String response_type,
             @RequestParam(value = "scope", defaultValue = "") String scope,
             @RequestParam(value = "redirect_uri", defaultValue = "") String redirect_uri,
-            @RequestParam(value = "login_hint", defaultValue = "") String loginHint
+            @RequestParam(value = "login_hint", defaultValue = "") String loginHint,
+            @RequestParam(value = "state", defaultValue = "") String state
     ) {
         AuthRequest authRequest = new AuthRequest();
         authRequest.setClientId(client_id);
@@ -119,6 +127,7 @@ public class AuthController {
         authRequest.setScope(scope);
         authRequest.setRedirectUri(redirect_uri);
         authRequest.setLoginHint(loginHint);
+        authRequest.setState(state);
         return authRequest;
     }
 

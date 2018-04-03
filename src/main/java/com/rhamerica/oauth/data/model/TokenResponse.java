@@ -5,19 +5,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TokenResponse {
-    @JsonProperty("accessToken")
+    @JsonProperty("access_token")
     private String accessToken; //": "SlAV32hkKG",
 
     @JsonProperty("token_type")
-    private String token_type; //": "Bearer",
+    private String tokenType; //": "Bearer",
 
     @JsonProperty("refresh_token")
-    private String refresh_token; //": "8xLOxBtZp8",
+    private String refreshToken; //": "8xLOxBtZp8",
 
     @JsonProperty("expires_in")
-    private Integer expires_in; //": 3600,
+    private Integer expiresIn; //": 3600,
 
-    @JsonProperty("idToken")
+    @JsonProperty("id_token")
     private String idToken; //
 
     public String getAccessToken() {
@@ -28,28 +28,28 @@ public class TokenResponse {
         this.accessToken = accessToken;
     }
 
-    public String getToken_type() {
-        return token_type;
+    public String getTokenType() {
+        return tokenType;
     }
 
-    public void setToken_type(String token_type) {
-        this.token_type = token_type;
+    public void setTokenType(String tokenType) {
+        this.tokenType = tokenType;
     }
 
-    public String getRefresh_token() {
-        return refresh_token;
+    public String getRefreshToken() {
+        return refreshToken;
     }
 
-    public void setRefresh_token(String refresh_token) {
-        this.refresh_token = refresh_token;
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
-    public Integer getExpires_in() {
-        return expires_in;
+    public Integer getExpiresIn() {
+        return expiresIn;
     }
 
-    public void setExpires_in(Integer expires_in) {
-        this.expires_in = expires_in;
+    public void setExpiresIn(Integer expiresIn) {
+        this.expiresIn = expiresIn;
     }
 
     public String getIdToken() {

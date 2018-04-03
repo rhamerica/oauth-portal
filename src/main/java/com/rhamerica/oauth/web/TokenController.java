@@ -5,13 +5,9 @@ import com.rhamerica.oauth.data.ClientRepository;
 import com.rhamerica.oauth.data.model.Client;
 import com.rhamerica.oauth.data.model.TokenRequest;
 import com.rhamerica.oauth.data.model.TokenResponse;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,13 +72,15 @@ public class TokenController {
         return tokenRequest;
     }
 
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class Error {
+        public static final Error INVALID_REQUEST = new Error("invalid_request");
+        private final String error;
+        public Error(String error) {
+            this.error = error;
+        }
 
-        public static Error INVALID_REQUEST = new Error("invalid_request");
-
-        private String error;
+        public String getError() {
+            return error;
+        }
     }
 }

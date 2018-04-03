@@ -100,9 +100,9 @@ public class SecurityService {
         TokenResponse tokenResponse = new TokenResponse();
 
         Long expireInSeconds = (expire.toEpochMilli() - now.toEpochMilli()) / 100;
-        tokenResponse.setExpires_in(expireInSeconds.intValue());
+        tokenResponse.setExpiresIn(expireInSeconds.intValue());
         tokenResponse.setAccessToken(token);
-        tokenResponse.setToken_type("Bearer");
+        tokenResponse.setTokenType("Bearer");
         return tokenResponse;
     }
 }
