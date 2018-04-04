@@ -23,7 +23,7 @@ public class TokenController {
     @Autowired
     ClientRepository clientRepository;
 
-    @RequestMapping
+    @RequestMapping("/token")
     public ResponseEntity token(@ModelAttribute("token") TokenRequest tokenRequest) {
         /*
         grant_type=authorization_code

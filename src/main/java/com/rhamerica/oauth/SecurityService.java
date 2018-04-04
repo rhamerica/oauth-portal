@@ -105,4 +105,24 @@ public class SecurityService {
         tokenResponse.setTokenType("Bearer");
         return tokenResponse;
     }
+
+    public Optional<TokenResponse> verifyToken(String token) {
+        Optional<TokenResponse> result = Optional.empty();
+        try {
+            DecodedJWT decodedJWT = jwtVerifier.verify(token);
+            String clientId = decodedJWT.getClaim("cid").asString();
+            String userId = decodedJWT.getSubject();
+            Optional<Client> optionalClient = clientRepository.findById(clientId);
+            if (optionalClient.isPresent()) {
+                Optional<User> optionalUser = userRepository.findById(userId);
+                if (optionalUser.isPresent()) {
+                    TokenResponse accessToken = generateToken(optionalClient.get(), optionalUser.get());
+                    result = Optional.of(accessToken);
+                }
+            }
+        } catch (JWTVerificationException e){
+            log.error("error decoding token", e);
+        }
+        return result;
+    }
 }

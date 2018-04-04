@@ -15,8 +15,8 @@ import org.springframework.security.core.AuthenticationException;
 
 import java.util.ArrayList;
 
-//@Configuration
-//@EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("${session.store.dir}")
@@ -26,7 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/**" ).permitAll()
+                .antMatchers("/static/**", "/webjars/**", "/auth").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
